@@ -2,7 +2,7 @@
 completely text based recreation of pokemon red meant to be ran in the terminal \
 you should probably read the stuff below first ESPECIALLY if you are nintendo, gamefreak or creatures inc
 
-##info
+## info
 this is my first project in c++, and i was naturally limited. here are some things that were impacted: \
     -you can only catch and use 6 pokemon - could change in the future, but it is what it is now \
     -you cannot nickname pokemon - "memory reasons" aka i was too lazy could change in the future though \
