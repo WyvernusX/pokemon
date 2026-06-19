@@ -6,35 +6,154 @@ string name;
 string corr;
 string gender;
 string choice;
-string pokemon[6];
-int pokemonAmt = 0;
 string rival;
 string opt;
 string stage;
 string challenger;
+string moveChosen;
+int dollars;
+
+/* void backgroundLoop() {
+  while (pokemonAmt >= 1) {
+    //pokemon[0].levelUp;
+    //pokemon[0].faint(pokemon[0].health);
+  }
+}
+*/
 
 class Pokemon { //TODO: make this NOW
-  public: 
-    Pokemon(string name, int health, int defeated, int type);
+public:
+    string name;
+    int health;
+    int level;
+    int xp;
+    int threshold;
+    string type1;
+    string type2;
+    string move1;
+    int pp1;
+    string move2;
+    int pp2;
+    string move3;
+    int pp3;
+    string move4;
+    int pp4;
+    string type;
+    string oppType;
+    bool canEvolve;
+    int maxhp;
+    int stagesLeft;
+    bool fainted; 
 
-    void damage() {
-
+    Pokemon(string name, int health, int maxhp, bool canEvolve, int stagesLeft, int level, int xp, int threshold, bool fainted, string type1, string type2, string move1, int pp1, string move2, int pp2, string move3, int pp3, string move4, int pp4, string type) {
+      this->name = name;
+      this->health;
+      this->maxhp;
+      this->canEvolve;
+      this->stagesLeft;
+      this->level;
+      this->xp;
+      this->threshold;
+      this->fainted;
+      this->type1;
+      this->type2;
+      this->move1;
+      this->move2;
+      this->move3;
+      this->move4;
+      this->pp1;
+      this->pp2;
+      this->pp3;
+      this->pp4;
+      this->type;
     }
 
-    void heal() {
+    Pokemon() {
+    name = "missingno"; 
+    health = 20; 
+    maxhp = 20;
+    canEvolve = false;
+    stagesLeft = 0;
+    level = 5; 
+    xp = 0; 
+    threshold = 20;
+    fainted = false; 
+    type1 = "normal";
+    type2 = "none";
+    move1 = "tackle"; pp1 = 20;
+    move2 = "none"; pp2 = 0;
+    move3 = "none"; pp3 = 0;
+    move4 = "none"; pp4 = 0;
+    type = "none";
+    }
+    
+    void faint() {
+      if (health <= 0) {
+        health = 0;
+        fainted = true;
+      }
+    }
 
+    void damage(int amt, string oppType) {
+      health -= amt;
+      faint();
+    } 
+
+    void heal() {
+      if (type == "joy" || type == "full") {
+        health = maxhp; 
+      }
     }
 
     void attack() {
+      do {
+         
+      }
+      while (moveChosen == "empty");
+    }
 
-    
+    void evolve() {
+      if (canEvolve == true && stagesLeft >= 1) {
+        //add evolution logic here
+      }
+    }
+
+    void levelUp() {
+      if (xp >= threshold) {
+        xp = 0;
+        level ++;
+        threshold *= 1.1;
+      }
+    }
+
+    void caught() {
+
     }
 };
+
+Pokemon pokemon[6];
+int pokemonAmt = 0;
 
 map<string, string> opposite = {
     {"charmander", "squirtle"},
     {"squirtle", "bulbasaur"},
     {"bulbasaur", "charmander"}
+};
+
+map <string, string> weakness = {
+  {"water", "grass"},
+  {"water", "dragon"},
+  {"fire", "water"},
+  {"fire",  "rock"},
+  {"fire", "dragon"},
+  {"grass", "bug"},
+  {"grass", "fire"},
+  {"grass", "poison"},
+  {"grass", "flying"},
+  {"grass", "dragon"},
+  {"electric", "grass"},
+  {"elecric", "dragon"}, 
+  //TODO: finish chart and add strength and no effect later
 };
 
 void checker(string userChoice) {
@@ -53,15 +172,15 @@ void battleMaker(string challenger, string stage) {
     cin.get();
     if (stage == "starter") {
       while (true) {
-        cout << format("{} sent out {} ", name, pokemon[0]);
+        cout << format("{} sent out ", name); //TODO: add this back eventually
         cout << format("what will you do? (fight / bag / pokemon / run) ");
         cin >> opt;
         if (opt == "fight") {
           //cout << format("{}/20 PP - tackle \n you have no other moves!");
         } else if (opt == "bag") {
-          cout << format("there isnt anything in your bag!");
-        } else if (opt == pokemon[0]) {
-          cout << format("you only have {} as of now", pokemon[0]);
+          cout << format("there isnt anything in your bag!"); //TODO: add back lines 127 and lines 128 back.
+        } else if (opt == "pokemon") {
+          cout << format("you only have {} as of now", "citykeys");
         } else if (opt == "run") {
           cout << "you can't run from a trainer battle! \n";
         } else {
@@ -103,14 +222,14 @@ int main() {
       corr = "n"; 
     }
   }
-  while (corr != "y");
+  while (corr != "y");  
   if (pokemonAmt < 6) {
-    pokemon[pokemonAmt] = choice;
-    pokemonAmt ++;
+    //TODO: continue ts
+    pokemon[0] = Pokemon(choice, 20, 20, true, 2, 5, 0, 20, false, "x", "y", "tackle", 20, "none", 0, "none", 0, "none", 0, "none");
   }
-
+  choice = "";
   cin.ignore(); 
-  corr = "n";
+  corr = "n"; 
   cout << format("OAK: great choice! {} is now your starter and first pokemon! wait a minute.. ", choice);
   cin.get();  
   cout << format("OAK: ah! its my grandson! hello there er... ");
