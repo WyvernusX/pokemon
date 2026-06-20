@@ -47,25 +47,25 @@ public:
 
     Pokemon(string name, int health, int maxhp, bool canEvolve, int stagesLeft, int level, int xp, int threshold, bool fainted, string type1, string type2, string move1, int pp1, string move2, int pp2, string move3, int pp3, string move4, int pp4, string type) {
       this->name = name;
-      this->health;
-      this->maxhp;
-      this->canEvolve;
-      this->stagesLeft;
-      this->level;
-      this->xp;
-      this->threshold;
-      this->fainted;
-      this->type1;
-      this->type2;
-      this->move1;
-      this->move2;
-      this->move3;
-      this->move4;
-      this->pp1;
-      this->pp2;
-      this->pp3;
-      this->pp4;
-      this->type;
+      this->health = health;
+      this->maxhp = maxhp;
+      this->canEvolve = canEvolve;
+      this->stagesLeft = stagesLeft;
+      this->level = level;
+      this->xp = xp;
+      this->threshold = threshold;
+      this->fainted = fainted;
+      this->type1 = type1;
+      this->type2 = type2; 
+      this->move1 = move1;
+      this->pp1 = pp1;
+      this->move2 = move2;
+      this->pp2 = pp2; 
+      this->move3 = move3;
+      this->pp3 = pp3; 
+      this->move4 = move4; 
+      this->pp4 = pp4;
+      this->type = type;
     }
 
     Pokemon() {
@@ -105,7 +105,7 @@ public:
       }
     }
 
-    void attack() {
+    void attack(Pokemon target) {
       do {
          
       }
@@ -163,6 +163,10 @@ void checker(string userChoice) {
 string toUpperStr(string s) {
     for (char &c : s) c = toupper(c);
     return s;
+} //TODO: make this not change the string! 
+
+void enemyAttack(string move, string type) {
+  //nothin
 }
 
 //TODO: make this work
@@ -171,22 +175,33 @@ void battleMaker(string challenger, string stage) {
   cout << format("{} challenges you to a battle!", toUpperStr(challenger));
     cin.get();
     if (stage == "starter") {
-      while (true) {
+      while (pokemon[0].health > 0) {
+        choice = "";
         cout << format("{} sent out ", name); //TODO: add this back eventually
-        cout << format("what will you do? (fight / bag / pokemon / run) ");
+        cout << format("what will you do? (fight/bag/pokemon/run) ");
         cin >> opt;
         if (opt == "fight") {
-          //cout << format("{}/20 PP - tackle \n you have no other moves!");
+          cout << format("attacks: \n 1. {}PP {} \n2.{}PP {} \n3. {}PP {} \n4. {}PP {} \nwhat move would you like todo? (1/2/3/4): ", pokemon[0].pp1, pokemon[0].move1, pokemon[0].pp2, pokemon[0].move2, pokemon[0].pp3, pokemon[0].move3, pokemon[0].pp4, pokemon[0].move4);
+          cin >> choice;
+          if (choice != "1") {
+            cout << "currrently, you can only use tackle. try again. (enter to continue)";
+            cin.ignore();
+            cin.get();
+            choice = ""; 
+          } else {
+            cout << format("{} tackled {} for {} damage!", pokemon[0].name, opposite[pokemon[0].name], "x"); 
+          } 
         } else if (opt == "bag") {
-          cout << format("there isnt anything in your bag!"); //TODO: add back lines 127 and lines 128 back.
+          cout << format("there isnt anything in your bag! \n"); 
         } else if (opt == "pokemon") {
-          cout << format("you only have {} as of now", "citykeys");
+          cout << format("you only have {} as of now... \n", pokemon[0].name);
         } else if (opt == "run") {
           cout << "you can't run from a trainer battle! \n";
         } else {
           cout << "you entered an invalid option! try again! \n"; 
-        }
-      } 
+        } 
+      }
+      cout << format("{} lost the battle and blacked out... \n", name);
     }
 }
 
@@ -230,7 +245,7 @@ int main() {
   choice = "";
   cin.ignore(); 
   corr = "n"; 
-  cout << format("OAK: great choice! {} is now your starter and first pokemon! wait a minute.. ", choice);
+  cout << format("OAK: great choice! {} is now your starter and first pokemon! wait a minute.. ", pokemon[0].name);
   cin.get();  
   cout << format("OAK: ah! its my grandson! hello there er... ");
   cin.get();
@@ -249,10 +264,11 @@ int main() {
   cin.get();
   cout << format("OAK: go ahead! ");
   cin.get();
-  cout << format("{}: {}, i choose you! ", toUpperStr(rival), opposite[choice]);
+  cout << format("{}: {}, i choose you! ", toUpperStr(rival), opposite[pokemon[0].name]);
   cin.get();
   cout << format("{}: alright {}, to start your pokemon journey, lets have a battle! ", toUpperStr(rival), name);
   cin.get();
+  battleMaker(rival, "starter");
   cout << "SYS: battle work in progress, thanks for playing :) \n";
   //TODO: reference battle here
   return 0;
