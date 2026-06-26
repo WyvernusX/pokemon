@@ -177,7 +177,7 @@ void battleMaker(string challenger, string stage) {
     if (stage == "starter") {
       while (pokemon[0].health > 0) {
         choice = "";
-        cout << format("{} sent out ", name); //TODO: add this back eventually
+        cout << format("{} sent out {} ", name, pokemon[0].name); //TODO: add this back eventually
         cout << format("what will you do? (fight/bag/pokemon/run) ");
         cin >> opt;
         if (opt == "fight") {
