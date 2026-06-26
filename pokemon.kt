@@ -11,7 +11,9 @@ class Pokemon(val name: String, var health: Int, var canEvolve: Boolean, var sta
   }
 
   fun heal() {
-
+    if (type == "joy") {
+      health = maxHp
+    }
   }
 
   fun attack(target: Pokemon) {
